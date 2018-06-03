@@ -6,7 +6,9 @@ import os
 host = "localhost"
 port = 5000
 """ INIT DATABASE CONNECTION BELOW! """
-engine = create_engine('sqlite:///db_data\\AirportRecords.db')
+
+#engine = create_engine('sqlite:///sql_database\\AirportRecords.db') # Uncomment this Line For Windows.
+engine = create_engine('sqlite:///sql_database/AirportRecords.db') # Uncomment this line for Linux.
 db = scoped_session(sessionmaker(bind=engine))
 
 app = Flask(__name__)
