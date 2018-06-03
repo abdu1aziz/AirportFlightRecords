@@ -1,0 +1,124 @@
+{% extends 'layout.html' %}
+
+{% block title %}Modify Flight{% endblock %}
+{% block content %}
+
+
+
+
+<form class="form-inline" action="{{ url_for('deleteFlight') }}" method="POST">
+        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Choose Flight From Below:</label>
+        <select name="flight_status" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" required>
+            {% for flight in flight_table %}
+                <option value="{{ flight.id }}"> From: {{ flight.departure }} To: {{ flight.arrival }} Duration: {{ flight.duration }}</option>
+            {% endfor %}
+        </select>
+
+
+        <!-- DELETE CONFIRM STARTS-->
+    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteLabel">Are You Sure About This Action?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body modal-title font-weight-bold bg-danger text-white border">
+                    <div class="form-group">
+                            <div class="col-auto my-1">
+                                <select name="deletionInformation" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option id="deleteConfirmationText"> </option>
+                                </select>
+                            </div>
+                        </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Don't Delete, Take Me Back!</button>
+            <button type="submit" class="btn btn-danger">Yes I Am, Delete!</button>
+            </div>
+        </div>
+        </div>
+    </div>
+        <!-- DELETE CONFIRM ENDS-->
+
+        <button type="button" class="btn btn-danger my-1" onclick="deleteConfirmation();" data-toggle="modal" data-target="#confirmDelete">Delete Flight Record</button>
+    
+        <div style="margin-left: 2%;"><button type="button" class="btn btn-primary my-1" data-toggle="modal" onclick="selectItem();" data-target="#EditFlightModal">Change Flight Record</button></div>
+    </form>
+        
+        <div class="modal fade" id="EditFlightModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editing Flight Below:</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+              
+              
+                    <!-- STARTING EDIT FORM!-->
+                    <div class="modal-body">
+                      <form action="{{ url_for('editFlight') }}" method="POST">
+
+                        <div class="d-flex justify-content-center align-items-center container ">
+                            <div class="row ">
+          
+                            <div class="form-group">
+                                    <div class="col-auto my-1">
+                                        <select name="selectedFlight" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                        <option id="selectedFlightInfo"> </option>
+                                        </select>
+                                    </div>
+                                </div>
+                        
+                            <div class="form-group">
+                            <label for="Departure">Flight Departure</label>
+                            <input type="text" class="form-control" name="departure_loc" id="" aria-describedby="helpId" placeholder="Departure Location" required autofocus>
+                              <small id="helpId" class="form-text text-muted">City Of Departure</small>
+                      
+                            <label for="Arrival">Flight Arrival</label>
+                            <input type="text" class="form-control" name="arrival_loc" id="" aria-describedby="helpId" placeholder="Arrival Location" required>
+                            <small id="helpId" class="form-text text-muted">City Of Arrival</small>
+                      
+                            <label for="Duration"> Flight Duration</label>
+                            <input type="number" class="form-control" name="duration_time" id="" aria-describedby="helpId" placeholder="Duration In Minutes">
+                            <small id="helpId" class="form-text text-muted">Flight Duration In Minutes</small>
+                        </div>
+                        </div>
+
+                        </div>
+
+                    <!-- ENDING EDIT FORM!-->
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit Changes.</button>
+                        </div>
+                        </form>
+                    
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+<script type="text/javascript">
+        function selectItem(){
+        var selValue = document.getElementById('inlineFormCustomSelectPref').options[document.getElementById('inlineFormCustomSelectPref').selectedIndex].value;
+        var selText = document.getElementById('inlineFormCustomSelectPref').options[document.getElementById('inlineFormCustomSelectPref').selectedIndex].innerHTML;
+        document.getElementById("selectedFlightInfo").innerHTML = selValue + " " + selText;
+        };
+        function deleteConfirmation(){
+            //var deletePrompt = "Are Your Sure You Want To Delete The Following Flight:";
+            var selValue = document.getElementById('inlineFormCustomSelectPref').options[document.getElementById('inlineFormCustomSelectPref').selectedIndex].value;
+            var selText = document.getElementById('inlineFormCustomSelectPref').options[document.getElementById('inlineFormCustomSelectPref').selectedIndex].innerHTML;
+            document.getElementById("deleteConfirmationText").innerHTML = " ID: " + selValue + " " + selText;
+        }
+</script>
+      
+
+{% endblock %}

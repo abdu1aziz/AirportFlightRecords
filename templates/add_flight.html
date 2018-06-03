@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Flight{% endblock %}
+{% block content %}
+
+<form action="{{ url_for('addFlight') }}" method="post">
+    <div class="form-group">
+      <label for="Departure">Flight Departure</label>
+      <input type="text" class="form-control" name="departure_loc" id="" aria-describedby="helpId" placeholder="Departure Location" required autofocus>
+        <small id="helpId" class="form-text text-muted">City Of Departure</small>
+
+      <label for="Arrival">Flight Arrival</label>
+      <input type="text" class="form-control" name="arrival_loc" id="" aria-describedby="helpId" placeholder="Arrival Location" required>
+      <small id="helpId" class="form-text text-muted">City Of Arrival</small>
+
+      <label for="Duration"> Flight Duration</label>
+      <input type="number" class="form-control" name="duration_time" id="" aria-describedby="helpId" placeholder="Duration In Minutes">
+      <small id="helpId" class="form-text text-muted">Flight Duration In Minutes</small>
+      <div class="text-center">
+      <input name="submission" id="" class="btn btn-outline-primary" type="submit" value="Submit">
+    </div>
+    </div>
+</form>
+{% endblock %}

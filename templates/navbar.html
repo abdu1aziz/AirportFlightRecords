@@ -1,0 +1,20 @@
+<div class="container">
+        <div class="header clearfix">
+          <nav>
+            <ul class="nav nav-pills float-right">
+              <li class="nav-item">
+                <a class="nav-link {{ projName[2] }}" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {{ projName[3] }}" href="{{ url_for('addFlight') }}">Add Flight</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {{ projName[5] }}" href="{{ url_for('modifyFlight') }}">Modify Flight</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {{ projName[4] }}" target="_blank" href="https://github.com/abdu1aziz">More Coming Soon</a>
+              </li>
+            </ul>
+          </nav>
+          <h3 class="text-muted">{{ projName[0] }}</h3>
+        </div>
